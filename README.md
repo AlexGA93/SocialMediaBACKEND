@@ -31,8 +31,8 @@ If you want to conactme, please go to my Github profile or send me a email throu
 
 #### Illustrations
 
-![auth.js](https://github.com/AlexGA93/SocialMediaBACKEND/imgs/auth.JPG)
-![models.js](https://github.com/AlexGA93/SocialMediaBACKEND/imgs/models.JPG)
-![profile.js](https://github.com/AlexGA93/SocialMediaBACKEND/imgs/profile.JPG)
-![users.js](https://github.com/AlexGA93/SocialMediaBACKEND/imgs/users.JPG)
-![postman.js](https://github.com/AlexGA93/SocialMediaBACKEND/imgs/postman.JPG)
+![auth.js](https://github.com/AlexGA93/SocialMediaBACKEND/blob/master/imgs/auth.JPG)
+![models.js](https://github.com/AlexGA93/SocialMediaBACKEND/blob/master/imgs/models.JPG)
+![profile.js](https://github.com/AlexGA93/SocialMediaBACKEND/blob/master/imgs/profile.JPG)
+![users.js](https://github.com/AlexGA93/SocialMediaBACKEND/blob/master/imgs/users.JPG)
+![postman.js](https://github.com/AlexGA93/SocialMediaBACKEND/blob/master/imgs/postman.JPG)
