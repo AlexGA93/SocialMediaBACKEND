@@ -1,8 +1,10 @@
 # Usa la imagen de Node.js
-FROM node:20
+FROM node:18
+
+RUN mkdir -p /home/app
 
 # Establece el directorio de trabajo
-WORKDIR /app
+WORKDIR /home/app
 
 # Copia los archivos del proyecto
 COPY package*.json ./
@@ -12,7 +14,7 @@ RUN npm install
 COPY . .
 
 # Expone el puerto de la aplicación
-EXPOSE 3000
+EXPOSE 5000
 
 # Comando para ejecutar la aplicación
-CMD ["npm", "run", "start:prod"]
+CMD ["npm", "run", "start:dev"]

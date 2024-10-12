@@ -13,14 +13,6 @@ import { UserModule } from './modules/user/user.module';
 import { ProfileModule } from './modules/profile/profile.module';
 import { PostModule } from './modules/post/post.module';
 import { AuthModule } from './modules/auth/auth.module';
-import { User } from './schemas/users.entity';
-import { UserProfile } from './schemas/user_profile.entity';
-import { Password } from './schemas/password.entity';
-import { Experience } from './schemas/experience.entity';
-import { Education } from './schemas/education.entity';
-import { Social } from './schemas/social.entity';
-import { UserPost } from './schemas/user_post.entity';
-import { PostLikes } from './schemas/post_likes.entity';
 
 const typeOrmConfig: OrmModuleConfigType = {
       type: "mysql",
