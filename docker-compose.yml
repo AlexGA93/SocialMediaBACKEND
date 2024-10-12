@@ -1,0 +1,32 @@
+version: '3.8'
+
+services:
+  app:
+    build: .
+    ports:
+      - $LOCAL_PORT:$LOCAL_PORT
+    depends_on:
+      - db
+    environment:
+      DB_HOST: $MYSQL_HOST
+      DB_PORT: $MYSQL_PORT
+      DB_USERNAME: $MYSQL_GLOBAL_TERM
+      DB_PASSWORD: $MYSQL_GLOBAL_TERM
+      DB_NAME: $MYSQL_DATABASE
+    volumes:
+      - .:/app
+
+  db:
+    image: mysql
+    env_file:
+      - ./.env
+    ports:
+      - $MYSQL_PORT:$MYSQL_PORT # Mapea el puerto 3306 del contenedor al puerto 3306 del host
+    environment:
+      MYSQL_ROOT_PASSWORD: $MYSQL_ROOT_PASSWORD
+      MYSQL_DATABASE: $MYSQL_DATABASE
+    volumes:
+      - db_data:/var/lib/mysql
+
+volumes:
+  db_data:
