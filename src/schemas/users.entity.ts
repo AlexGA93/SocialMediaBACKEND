@@ -1,44 +1,32 @@
-import { Entity, Column, PrimaryGeneratedColumn, Check, JoinColumn, OneToOne, OneToMany } from 'typeorm';
-import { Password } from './password.entity';
-import { UserProfile } from './user_profile.entity';
-import { PostLikes } from './post_likes.entity';
-import { UserPost } from './user_post.entity';
+import { Entity, Column, PrimaryGeneratedColumn, Check, JoinColumn, OneToOne, OneToMany, Unique, CreateDateColumn } from 'typeorm';
 
 @Entity('users')
 @Check('age > 18')
+@Unique(['email'])
 export class User {
-  @PrimaryGeneratedColumn()
+  
+  @PrimaryGeneratedColumn() // id autoincrement
   id: number;
 
-  @Column({ length: 100 })
-  name: string;
+  @Column({ type: 'varchar', length: 100 })
+  first_name: string;
 
-  @Column({ length: 100 })
+  @Column({ type: 'varchar', length: 100 })
   second_name: string;
 
-  @Column()
+  @Column({ type: 'int', width: 3 })
   age: number;
 
-  @Column({ length: 100 })
+  @Column({ type: 'varchar', length: 100 })
   email: string;
 
-  @Column({ length: 10 })
+  @Column({
+    type: 'enum',
+    enum: ['admin', 'user'],
+    default: 'user',
+  })
   role: string;
 
-  @Column({ type: 'timestamp' })
+  @CreateDateColumn({ type: 'datetime', default: () => 'CURRENT_TIMESTAMP' }) // Cambiar 'timestamp' a 'datetime'
   registered_at: Date;
-
-  @OneToOne(() => Password, (password) => password.user, { cascade: true })
-  @JoinColumn({ name: 'id_user' })
-  password: Password;
-
-  @OneToOne(() => UserProfile, (profile) => profile.id, { cascade: true })
-  @JoinColumn({ name: 'id_user' })
-  profile: UserProfile;
-
-  @OneToMany(() => UserPost, (post) => post.id, { cascade: true })
-  posts: UserPost[];
-
-  @OneToMany(() => PostLikes, (like) => like.id, { cascade: true })
-  postLikes: PostLikes[];
 }

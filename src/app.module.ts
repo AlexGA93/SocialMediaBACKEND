@@ -13,26 +13,18 @@ import { UserModule } from './modules/user/user.module';
 import { ProfileModule } from './modules/profile/profile.module';
 import { PostModule } from './modules/post/post.module';
 import { AuthModule } from './modules/auth/auth.module';
-
-const typeOrmConfig: OrmModuleConfigType = {
-      type: "mysql",
-      host: constants.DATABASE.CONFIG.host,
-      port: constants.DATABASE.CONFIG.port,
-      username: constants.DATABASE.CONFIG.username,
-      password: constants.DATABASE.CONFIG.password,
-      database: constants.DATABASE.CONFIG.database,
-      entities: [__dirname + '/**/*.entity{.ts,.js}'],
-      synchronize: constants.DATABASE.CONFIG.synchronize
-    };
+import { User } from './schemas/users.entity';
+import { Password } from './schemas/password.entity';
 
 @Module({
   imports: [
     ConfigModule.forRoot({ envFilePath: ".env" , isGlobal: true}),
-    TypeOrmModule.forRoot(typeOrmConfig),
+    TypeOrmModule.forRoot(constants.DATABASE.CONFIG),
+    TypeOrmModule.forFeature([User, Password]),
+    AuthModule,
     UserModule,
     ProfileModule,
     PostModule,
-    AuthModule
   ],
   controllers: [AppController],
   providers: [AppService],

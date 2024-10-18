@@ -7,17 +7,15 @@ export class Password {
     @PrimaryGeneratedColumn()
     id: number;
 
-    @Column({ name: 'id_user', type: 'int' })
-    id_user: number;
+    // 'id_user' será la clave foránea que hace referencia a 'User.id'
+    @OneToOne(() => User)
+    @JoinColumn({ name: 'id_user', referencedColumnName: 'id' })
+    user: User;
 
-    @Column({ name: 'user_password' , type: 'varchar', length: 255})
+    @Column({ type: 'varchar', length: 255 })
     user_password: string;
 
-    @CreateDateColumn({ name: 'registered_at' })
-    registeredAt: Date;
-
-
-    @OneToOne(() => User, (user) => user.id, { onDelete: 'CASCADE' })
-    @JoinColumn({ name: 'id_user' }) // Establish the join column
-    user: User;
+    @CreateDateColumn({ type: 'datetime', default: () => 'CURRENT_TIMESTAMP' })
+    registered_at: Date;
+    
 }

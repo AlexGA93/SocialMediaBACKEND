@@ -14,44 +14,34 @@ export class AuthService {
         @InjectRepository(Password) private passwordRepository: Repository<Password>,
     ) {}
 
-    async register(requestBody: UserType): Promise<string> {
-        // extracting user data
-        const { name, second_name, age, email, password, role } = requestBody;
+    // async register(requestBody: UserType): Promise<string> {
+    //     // extracting user data
+    //     const { first_name, second_name, age, email, password, role } = requestBody;
 
-        // check if user is registered
-        const userExists: User = await this.userRepository.findOne({ where: { email } });
+    //      // Verificar si el usuario ya está registrado
+    //     const userExists: User = await this.userRepository.findOne({ where: { email } });
 
-        if (userExists) {
-            throw new ConflictException('Email already in use');
-        }
+    //     if (userExists) {
+    //         throw new ConflictException('Email already in use');
+    //     }
 
-        // Insert User
-        const userModel = this.userRepository.create({ name, second_name, age, email, role });
-        const userRegistered = await this.userRepository.save(userModel);
+    //     // Insertar el usuario
+    //     const userModel = this.userRepository.create({ name, second_name, age, email, role });
+    //     const userRegistered = await this.userRepository.save(userModel);
 
-        // if there is no error obtain user id
-        if (userRegistered) {
-            throw new ConflictException('User has been registered successfully');
-        }
+    //     // Hash de la contraseña
+    //     const userPassword = await bcrypt.hash(password, parseInt(process.env.PASSWORD_HASH));
 
-        // hash password
-        const userPassword = await bcrypt.hash(password, process.env.PASSWORD_HASH);
+    //     // Insertar contraseña
+    //     const passwordModel: Password = this.passwordRepository.create({
+    //         id_user: userRegistered.id,
+    //         user_password: userPassword
+    //     });
 
-        // insert Password
-        const passwordModel: Password = this.passwordRepository.create({
-            'id_user': userRegistered.id,
-            'user_password': userPassword
-        })
-
-        const passwordRegistered: Password = await this.userRepository.save(passwordModel);
-
-        if (passwordRegistered) {
-            throw new ConflictException('Password has been registered successfully');
-        }
+    //     await this.passwordRepository.save(passwordModel);
         
-
-        return this.signJWToken({ "email": userRegistered.email, "password":passwordRegistered.user_password  });
-    }
+    //     return this.signJWToken({ "email": userRegistered.email, "password":passwordModel.user_password  });
+    // }
 
     signJWToken(data) {
         return jwt.sign({

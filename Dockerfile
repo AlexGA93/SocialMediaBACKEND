@@ -1,5 +1,5 @@
 # Usa la imagen de Node.js
-FROM node:18
+FROM node:20
 
 RUN mkdir -p /home/app
 

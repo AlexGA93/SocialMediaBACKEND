@@ -3,12 +3,19 @@ services:
     env_file:
       - ./.env
     build: .
+    environment:
+      MYSQL_HOST: ${MYSQL_HOST}
+      MYSQL_PORT: ${MYSQL_PORT}
+      MYSQL_USERNAME: ${MYSQL_USERNAME}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
     ports:
       - $LOCAL_PORT:$DOCKER_PORT
-    links:
-      - mysqldb
+    
     depends_on:
-      - mysqldb
+      mysqldb:
+        # waits to mysql be ready
+        condition: service_healthy
     volumes:
       - .:/home/app
 
@@ -18,12 +25,18 @@ services:
       - ./.env
     restart: always
     environment:
-      - MYSQL_ROOT_PASSWORD=$MYSQL_PASSWORD
-      - MYSQL_DATABASE=$MYSQL_DATABASE
+      MYSQL_ROOT_PASSWORD: ${MYSQL_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
     ports:
       - $MYSQL_PORT:$MYSQL_PORT
     volumes:
       - mysql-data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
   
 volumes:
   mysql-data:

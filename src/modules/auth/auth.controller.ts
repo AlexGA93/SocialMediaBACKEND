@@ -11,6 +11,6 @@ export class AuthController {
     // HTTP Requests
     @Post("/register")
     async register(@Body() requestBody: UserType) {
-        return this.authService.register(requestBody)
+        // return this.authService.register(requestBody)
     }
 }

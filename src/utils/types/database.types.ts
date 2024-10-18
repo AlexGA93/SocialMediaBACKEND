@@ -1,3 +1,9 @@
+export interface ConstantType {
+  DATABASE: {
+    CONFIG: OrmModuleConfigType
+  }
+}
+
 export interface OrmModuleConfigType {
     type: 'mysql' | 'postgres' | 'mariadb' | 'sqlite' | 'mssql' | 'oracle' | 'mongodb' | 'cockroachdb' | 'sap' | 'better-sqlite3' | 'expo';
     host: string;
@@ -7,4 +13,6 @@ export interface OrmModuleConfigType {
     database: string;
     entities?: any[];  // Adjust the type for entities if needed
     synchronize: boolean;
+    retryAttempts?: number;
+    retryDelay?: number;
   }
